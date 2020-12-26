@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { auth } from "./firebase";
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 //
 import "./Login.css";
-import {login} from './redux/userSlice'
+import { login } from "./redux/userSlice";
 
 function Login() {
   const [name, setName] = useState("");
@@ -12,30 +12,50 @@ function Login() {
   const [profilePic, setProfilePic] = useState("");
   const dispatch = useDispatch();
 
-
   const register = () => {
     if (!name) {
       return alert("Please enter a name");
     }
 
-    auth.createUserWithEmailAndPassword(email, password).then((userAuth) => {
-      userAuth.user.updatePrile({ displayName: name, photoURL: profilePic }).then(()=>{
-        dispatch(login({
-          email: userAuth.user.email,
-          uid: userAuth.user.uid,
-          displayName: name,
-          photoURL: profilePic
-        }))
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        userAuth.user.updatePrile({ displayName: name, photoURL: profilePic }).then(() => {
+          dispatch(
+            login({
+              email: userAuth.user.email,
+              uid: userAuth.user.uid,
+              displayName: name,
+              photoURL: profilePic,
+            })
+          );
+        });
+      })
+      .catch((error) => {
+        alert(error.messsage);
       });
-    }).catch(error=>{
-      alert(error.messsage)
-    });
   };
 
   const loginToApp = (e) => {
     e.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.dispalyName,
+            photoURL: userAuth.user.photoURL,
+          })
+        );
+      })
+      .catch((error) => {
+        alert(error.messsage);
+      });
   };
-  
+
   return (
     <div className="login">
       <img
@@ -65,7 +85,7 @@ function Login() {
       <p>
         Not a member ?
         <span className="login__register" onClick={register}>
-         Register Now
+          Register Now
         </span>
       </p>
     </div>

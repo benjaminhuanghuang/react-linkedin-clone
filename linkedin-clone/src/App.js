@@ -5,9 +5,11 @@ import Header from './Header'
 import Sidebar from './Sidebar'
 import Feed from './Feed'
 import Login from './Login'
+import Widgets from './Widgets'
+
 // redux
 import {useSelector, useDispatch} from 'react-redux'
-import {selectUser} from './redux/userSlice';
+import {selectUser, login, logout} from './redux/userSlice';
 import { auth } from './firebase'
 
 function App() {
@@ -16,12 +18,17 @@ function App() {
 
   useEffect(()=>{
     auth.onAuthStateChanged(userAuth=>{
-      if(userAuth)
+      if(userAuth.user)
       {
-
+        dispatch(login({
+          email: userAuth.user.email,
+          uid: userAuth.user.uid,
+          displayName: userAuth.displayName,
+          photoURL: userAuth.photoURL
+        }));
       }
       else{
-
+        dispatch(logout);
       }
     })
   }, []);
@@ -33,6 +40,7 @@ function App() {
       (<div className="app__body">
         <Sidebar/>
         <Feed/>
+        <Widgets/>
       </div>)}
     </div>
   );

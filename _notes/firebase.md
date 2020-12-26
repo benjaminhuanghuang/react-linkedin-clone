@@ -13,3 +13,18 @@ Enable Auth
 Copy config
 
 
+
+## Deploy
+```
+  firebase login
+
+  firebase init
+
+    build
+
+    
+
+
+```
+
+

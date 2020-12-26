@@ -13,8 +13,11 @@ npx create-react-app linkedin-clone
 
 npm i @material-ui/core @material-ui/icons
 
-```
 
+npm i redux react-redux @reduxjs/toolkit
+
+npm i react-flip-move
+```
 
 
 ## Layout

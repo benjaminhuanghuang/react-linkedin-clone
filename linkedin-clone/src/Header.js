@@ -1,35 +1,48 @@
-import React from 'react'
-import SearchIcon from '@material-ui/icons/Search'
-import HomeIcon from '@material-ui/icons/Home'
-import HomeSupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
-import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
-import ChatIcon from '@material-ui/icons/Chat'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+import React from "react";
+import SearchIcon from "@material-ui/icons/Search";
+import HomeIcon from "@material-ui/icons/Home";
+import HomeSupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
+import ChatIcon from "@material-ui/icons/Chat";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import { auth } from "./firebase";
+import "./Header.css";
+import HeaderOption from "./HeaderOption";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, login, logout } from "./redux/userSlice";
 
-import './Header.css'
-import HeaderOption from './HeaderOption'
 
 function Header() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
+  const logoutOfApp = () => {
+    dispatch(logout);
+    auth.signOut()
+  };
   return (
-    <div className='header'>
+    <div className="header">
       <div className="header__left">
-        <img src="https://www.flaticon.com/svg/static/icons/svg/174/174857.svg" alt=""/>
+        <img src="https://www.flaticon.com/svg/static/icons/svg/174/174857.svg" alt="" />
         <div className="header__search">
-          <SearchIcon/>
-          <input placeholder="Search" type="text"/>
+          <SearchIcon />
+          <input placeholder="Search" type="text" />
         </div>
       </div>
       <div className="header__right">
-        <HeaderOption Icon={HomeIcon} title='Home'/>
-        <HeaderOption Icon={HomeSupervisorAccountIcon}title='My Network'/>
-        <HeaderOption Icon={BusinessCenterIcon}title='Job'/>
-        <HeaderOption Icon={ChatIcon}title='Messaging'/>
-        <HeaderOption Icon={NotificationsIcon}title='Notifcations'/>
-        <HeaderOption avatar='https://compassionate-leakey-e9b16b.netlify.app/images/IG_Sonny.jpeg' title='me'/>
-        
+        <HeaderOption Icon={HomeIcon} title="Home" />
+        <HeaderOption Icon={HomeSupervisorAccountIcon} title="My Network" />
+        <HeaderOption Icon={BusinessCenterIcon} title="Job" />
+        <HeaderOption Icon={ChatIcon} title="Messaging" />
+        <HeaderOption Icon={NotificationsIcon} title="Notifcations" />
+        <HeaderOption avatar= {true}
+          title="me"
+          onClick={logoutOfApp}
+        />
       </div>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
