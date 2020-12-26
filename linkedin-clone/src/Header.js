@@ -1,9 +1,13 @@
 import React from 'react'
 import SearchIcon from '@material-ui/icons/Search'
-
+import HomeIcon from '@material-ui/icons/Home'
+import HomeSupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
+import ChatIcon from '@material-ui/icons/Chat'
+import NotificationsIcon from '@material-ui/icons/Notifications'
 
 import './Header.css'
-
+import HeaderOption from './HeaderOption'
 
 function Header() {
   return (
@@ -16,7 +20,12 @@ function Header() {
         </div>
       </div>
       <div className="header__right">
-
+        <HeaderOption Icon={HomeIcon} title='Home'/>
+        <HeaderOption Icon={HomeSupervisorAccountIcon}title='My Network'/>
+        <HeaderOption Icon={BusinessCenterIcon}title='Job'/>
+        <HeaderOption Icon={ChatIcon}title='Messaging'/>
+        <HeaderOption Icon={NotificationsIcon}title='Notifcations'/>
+        <HeaderOption avatar='https://compassionate-leakey-e9b16b.netlify.app/images/IG_Sonny.jpeg' title='me'/>
         
       </div>
     </div>
