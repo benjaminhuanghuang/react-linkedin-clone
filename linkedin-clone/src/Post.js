@@ -7,7 +7,7 @@ import './Post.css'
 function Post({name, discription, message, photoUrl}) {
   return (
     <div className="post">
-      <div className="post__hader">
+      <div className="post__header">
         <Avatar/>
         <div className="post__info">
           <h2>asfasf</h2>
